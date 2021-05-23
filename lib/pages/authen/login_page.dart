@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/bloc/auth_bloc.dart';
 import 'package:quanly_app/events/auth_events.dart';
 import 'package:quanly_app/events/auth_state.dart';
+import 'package:quanly_app/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -160,6 +161,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onSignInClick() {
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => HomePage()));
     authBloC.add(LoginButtonPress(
         email: _userController.text, password: _passController.text));
   }

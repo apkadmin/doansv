@@ -4,7 +4,7 @@ import 'package:quanly_app/events/auth_state.dart';
 import 'package:quanly_app/service/login_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthBloC extends Bloc<AuthEvents, AuthState> {
+class  AuthBloC extends Bloc<AuthEvents, AuthState> {
   AuthService repo;
   AuthBloC(AuthState initialState, this.repo) : super(initialState);
 

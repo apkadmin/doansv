@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quanly_app/constants.dart';
+import 'package:quanly_app/pages/detail_process_project/project_detail_process.dart';
 import 'package:quanly_app/widgets/project_stage_card.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -83,8 +84,16 @@ class _ProjectPageState extends State<ProjectPage> {
                   SizedBox(
                     height: 10.0,
                   ),
-                  ProjectStageCard(
-                    title: "Chi tiết báo cáo tiến đồ đợt 1",
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  DetailProcessProject()));
+                    },
+                    child: ProjectStageCard(
+                      title: "Chi tiết báo cáo tiến đồ đợt 1",
+                    ),
                   ),
                   SizedBox(
                     height: 10.0,
