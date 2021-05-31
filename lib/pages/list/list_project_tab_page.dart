@@ -77,7 +77,7 @@ class ListProjectTabPage extends StatelessWidget {
                             },
                             child: Container(
                               width: double.infinity,
-                              height: 130.0,
+                              height: 160.0,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 18.0, vertical: 8.0),
                               child: ProjectCard(project: _project),

@@ -13,6 +13,7 @@ class ProjectService {
     var response = await http.get(_url);
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
+      print(collection);
       _project = collection.map((json) => Project.fromJson(json)).toList();
     } else {
       print('Request failed with status: ${response.statusCode}.');

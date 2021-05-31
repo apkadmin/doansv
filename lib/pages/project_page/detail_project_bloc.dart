@@ -6,32 +6,30 @@ import 'package:quanly_app/models/detail_project.dart';
 import 'package:quanly_app/service/detail_project_service.dart';
 
 part 'detail_project_event.dart';
+
 part 'detail_project_state.dart';
 
 class DetailProjectBloc extends Bloc<DetailProjectEvent, DetailProjectState> {
   DetaiProjectService detaiProjectService;
+
   DetailProjectBloc({this.detaiProjectService}) : super(DetailProjectInitial());
 
   @override
   Stream<DetailProjectState> mapEventToState(
     DetailProjectEvent event,
   ) async* {
-    if(event is LoadDetaiProject)
-      {
-        yield* _mapLoadDetailProjec();
-      }
+    if (event is LoadDetaiProject) {
+      yield* _mapLoadDetailProjec();
+    }
   }
-  Stream<DetailProjectState> _mapLoadDetailProjec() async * {
+
+  Stream<DetailProjectState> _mapLoadDetailProjec() async* {
     yield DetailProjectLoading();
     var detailProject = await detaiProjectService.getDetatil();
-    if(detailProject!=null)
-      {
-        yield DetailProjectLoaded(detailProject: detailProject);
-      }
-    else
-      {
-        yield DetailProjectErros(erros: "Bạn chưa đăng ký project !");
-      }
-
+    if (detailProject != null) {
+      yield DetailProjectLoaded(detailProject: detailProject);
+    } else {
+      yield DetailProjectErros(erros: "Bạn chưa đăng ký project !");
+    }
   }
 }

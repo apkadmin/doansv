@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quanly_app/constants.dart';
 import 'package:quanly_app/models/news.dart';
 import 'package:quanly_app/models/project.model.dart';
+import 'package:quanly_app/service/register_project_service.dart';
+import 'package:quanly_app/util/dialog_over_time.dart';
+import 'package:quanly_app/util/global_cache.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -11,6 +14,7 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 240,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       decoration: BoxDecoration(
@@ -20,7 +24,7 @@ class ProjectCard extends StatelessWidget {
         children: [
           Container(
               width: 90.0,
-              height: 135.0,
+              height: 175.0,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
@@ -56,12 +60,27 @@ class ProjectCard extends StatelessWidget {
                     style: kDetailContent,
                   ),
                   SizedBox(height: 4.0),
-                  Text(
-                    project.state ? "Sinh viên đăng ký" : "chưa đăng ký",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: kDetailContent,
-                  ),
+                  Container(
+                     height: 40,
+                      child: project.idStudent==null && GlobalCache().getUser().idProject==null?
+                      TextButton(
+                          style:
+                              TextButton.styleFrom(backgroundColor: Colors.red,
+                              minimumSize: Size(double.infinity,50)),
+                          onPressed: () async {
+                            CircularProgressIndicator();
+                            String succes = await  RegisterProjectService().registerProject(project.id, GlobalCache().getUser().idStudent, GlobalCache().getUser().nameStudent);
+                            if(succes =="đăng ký thành công")
+                              {
+                                Navigator.pop(context);
+                                DiaLogOverTime('Đăng ký Project',(){Navigator.pop(context);});
+                              }
+                          },
+                          child: Text(
+                            'Đăng ký',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          )):Text('Đề tài đã có người đăng ký')
+                  )
                 ],
               ),
             ),
