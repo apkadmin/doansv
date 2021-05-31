@@ -30,12 +30,16 @@ dependencies:
   flutter_bloc: any
   shared_preferences: any
   equatable: any
-
+  hive:
+  path_provider:
+  rxdart:
+  hive_generator:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  build_runner:
   flutter_test:
     sdk: flutter
 

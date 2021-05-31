@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/bloc/student__user_bloc.dart';
 import 'package:quanly_app/events/user_events.dart';
+import 'package:quanly_app/models/detail_project.dart';
 import 'package:quanly_app/pages/list/list_page.dart';
 import 'package:quanly_app/pages/news/news_page.dart';
 import 'package:quanly_app/pages/profile_student_page.dart';
-import 'package:quanly_app/pages/project_page.dart';
+import 'package:quanly_app/pages/project_page/detail_project_bloc.dart';
+import 'package:quanly_app/pages/project_page/project_page.dart';
+import 'package:quanly_app/service/detail_project_service.dart';
+import 'package:quanly_app/util/global_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   StudentBloC studentBloc;
   String id;
   String token;
+
   void getUser() async {
     var pref = await SharedPreferences.getInstance();
     id = pref.getString('id');
@@ -40,9 +45,16 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _screens = [
     NewPage(),
     ListPage(),
-    ProjectPage(),
+    GlobalCache().getUser().idProject == null
+        ? Center(
+            child: Text('Bạn Chưa đăng ký project'),
+          )
+        : BlocProvider(
+      create: (_)=>DetailProjectBloc(detaiProjectService: DetaiProjectService()),
+        child: ProjectPage()),
     ProfileStudentPage()
   ];
+
   void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
