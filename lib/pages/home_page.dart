@@ -16,10 +16,10 @@ class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() =>HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   StudentBloC studentBloc;
   String id;
   String token;
@@ -58,6 +58,12 @@ class _HomePageState extends State<HomePage> {
   void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+  void hometab()
+  {
+    setState(() {
+      _selectedIndex =0;
     });
   }
 

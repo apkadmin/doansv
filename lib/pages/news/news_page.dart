@@ -5,6 +5,9 @@ import 'package:quanly_app/models/news.dart';
 import 'package:quanly_app/pages/news/read_news.dart';
 import 'package:quanly_app/widgets/primary_card.dart';
 import 'package:quanly_app/widgets/secondary_card.dart';
+import 'package:quanly_app/util/global_cache.dart';
+import 'package:quanly_app/models/student.dart';
+
 
 class NewPage extends StatefulWidget {
   @override
@@ -22,6 +25,7 @@ class _NewPageState extends State<NewPage> {
 
   @override
   Widget build(BuildContext context) {
+    String nameStudent = GlobalCache().getUser().nameStudent;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0),
@@ -37,7 +41,7 @@ class _NewPageState extends State<NewPage> {
                 style: kNonActiveTabStyle,
               ),
               subtitle: Text(
-                "Dương Quang Minh",
+                nameStudent,
                 textAlign: TextAlign.end,
                 style: kActiveTabStyle,
               ),

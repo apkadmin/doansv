@@ -25,5 +25,4 @@ class HiveUtils {
         .get("BOX_SHOW_SPLASH", defaultValue: null);
     return data;
   }
-
 }

@@ -14,9 +14,9 @@ registerProject(String idProject, String idStudent,String nameStudent) async {
 
   if (res.statusCode == 200) {
     Map<String,dynamic> data = convert.jsonDecode(res.body);
+    String success = data['message'];
 
-
-    return data['message'].toString();
+    return success;
   } else {
     print('Request failed with status: ${res.statusCode}.');
     final data = convert.jsonDecode(res.body);

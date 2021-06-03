@@ -29,6 +29,7 @@ class _ProjectPageState extends State<ProjectPage> {
       print("state listener : $state");
     }, builder: (context, state) {
       if (state is DetailProjectLoading) {
+        return Scaffold(body: Center(child: CircularProgressIndicator(),),);
       } else if (state is DetailProjectLoaded) {
         return Scaffold(
             appBar: AppBar(
@@ -180,13 +181,13 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
               ],
             ));
-      } else {
+      } else if(state is DetailProcessProjectErros){
         return Center(
-          child: Text("Co loi khi lay du lieu"),
+          child: Text("Bạn chưa đăng ký project"),
         );
       }
       return Center(
-        child: Text("Co loi khi lay du lieu"),
+        child: Text("Bạn chưa đăng ký project"),
       );
     });
   }

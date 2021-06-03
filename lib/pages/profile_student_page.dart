@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:quanly_app/util/global_cache.dart';
 
 import '../constants.dart';
 
@@ -9,12 +9,6 @@ class ProfileStudentPage extends StatefulWidget {
 }
 
 class _ProfileStudentPageState extends State<ProfileStudentPage> {
-  void getUser() async {
-    var pref = await SharedPreferences.getInstance();
-    String name = pref.getString('name');
-    print("name :" + name);
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -23,6 +17,11 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
 
   @override
   Widget build(BuildContext context) {
+    String nameStudent = GlobalCache().getUser().nameStudent;
+    String codeStudent = GlobalCache().getUser().code;
+    String gmailStudent = GlobalCache().getUser().email;
+    String adressStudent = GlobalCache().getUser().address;
+
     return Scaffold(
       appBar: AppBar(
         // elevation: 0.0,
@@ -89,7 +88,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
               ),
               Center(
                 child: Text(
-                  "Dương Quang Minh",
+                  nameStudent,
                   style: kCategoryTitle.copyWith(fontSize: 30),
                 ),
               ),

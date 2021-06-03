@@ -2,17 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:quanly_app/constants.dart';
 import 'package:quanly_app/models/news.dart';
 import 'package:quanly_app/models/project.model.dart';
+import 'package:quanly_app/models/student.dart';
+import 'package:quanly_app/pages/home_page.dart';
 import 'package:quanly_app/service/register_project_service.dart';
 import 'package:quanly_app/util/dialog_over_time.dart';
 import 'package:quanly_app/util/global_cache.dart';
+import 'package:quanly_app/widgets/showMessage.dart';
 
-class ProjectCard extends StatelessWidget {
+class ProjectCard extends StatefulWidget {
   final Project project;
-
   ProjectCard({this.project});
 
   @override
+  _ProjectCardState createState() => _ProjectCardState();
+}
+
+class _ProjectCardState extends State<ProjectCard> {
+  @override
   Widget build(BuildContext context) {
+    String idStudent = widget.project.idStudent;
+    String idProject = GlobalCache()
+        .getUser()
+        .idProject;
+    print("idprojecst: ${idStudent == "" ? 'khoảng trắng' : idStudent}");
+    print("id project: ${GlobalCache()
+        .getUser()
+        .idProject == "" ? "null ID" : idProject}");
     return Container(
       height: 240,
       width: double.infinity,
@@ -35,51 +50,74 @@ class ProjectCard extends StatelessWidget {
           Expanded(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 3.0, vertical: 5.0),
+              const EdgeInsets.symmetric(horizontal: 3.0, vertical: 5.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    project.name,
+                    widget.project.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: kTitleCard,
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                    "Chuyên ngành: " + project.majors,
+                    "Chuyên ngành: " + widget.project.majors,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: kDetailContent,
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                    "GVHD: " + project.nameTeacher,
+                    "GVHD: " + widget.project.nameTeacher,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: kDetailContent,
                   ),
                   SizedBox(height: 4.0),
                   Container(
-                     height: 40,
-                      child: project.idStudent==null && GlobalCache().getUser().idProject==null?
+                      height: 40,
+                      child: idStudent == "" && idProject == "" ||
+                          idStudent == null && idProject == null
+                          || idStudent == null && idProject == "" ?
                       TextButton(
                           style:
-                              TextButton.styleFrom(backgroundColor: Colors.red,
-                              minimumSize: Size(double.infinity,50)),
+                          TextButton.styleFrom(backgroundColor: Colors.red,
+                              minimumSize: Size(double.infinity, 50)),
                           onPressed: () async {
-                            CircularProgressIndicator();
-                            String succes = await  RegisterProjectService().registerProject(project.id, GlobalCache().getUser().idStudent, GlobalCache().getUser().nameStudent);
-                            if(succes =="đăng ký thành công")
-                              {
-                                Navigator.pop(context);
-                                DiaLogOverTime('Đăng ký Project',(){Navigator.pop(context);});
-                              }
+                            setState(() {
+                              idStudent = GlobalCache()
+                                  .getUser()
+                                  .idStudent;
+                              idProject = widget.project.id;
+                            });
+
+                            String succes = await RegisterProjectService()
+                                .registerProject(widget.project.id,
+                                GlobalCache()
+                                    .getUser()
+                                    .idStudent, GlobalCache()
+                                    .getUser()
+                                    .nameStudent);
+                            print(succes);
+                            if (succes != null) {
+
+                              Student student = GlobalCache().getUser();
+
+                              student.idProject = widget.project.id;
+                              GlobalCache().setUser(student);
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>
+                                     HomePage()
+                                  ));
+                            }
                           },
                           child: Text(
                             'Đăng ký',
                             style: TextStyle(color: Colors.white, fontSize: 14),
-                          )):Text('Đề tài đã có người đăng ký')
+                          )) : idProject != null && idProject!="" ? Text(
+                          'Bạn đã có đề tài') : Text(
+                          "Đề tài đã có người đăng ký")
                   )
                 ],
               ),
