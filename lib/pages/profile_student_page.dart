@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quanly_app/pages/authen/login_page.dart';
+import 'package:quanly_app/pages/change_pass_word.dart';
 import 'package:quanly_app/util/global_cache.dart';
 
 import '../constants.dart';
@@ -195,6 +198,68 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       style: kTitleCard,
                     ),
                   ],
+                ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  GlobalCache().setUser(null);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>ChangePassWord() ));
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                  width: double.infinity,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.login_rounded
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Đổi mật khẩu",
+                        style: kTitleCard,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  GlobalCache().setUser(null);
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                  width: double.infinity,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.login_rounded
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Đăng xuất",
+                        style: kTitleCard,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

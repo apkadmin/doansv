@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/bloc/auth_bloc.dart';
@@ -114,17 +115,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final msg = BlocBuilder<AuthBloC, AuthState>(builder: (context, state) {
-      if (state is LoginErrorState) {
-        return Text(state.message);
-      } else if (state is LoginLoadingState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else {
-        return Container();
-      }
-    });
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -137,6 +127,12 @@ class _LoginPageState extends State<LoginPage> {
             } else if (state is AdminLoginSuccesState) {
               return Navigator.pushNamed(context, '/admin');
             }
+            else if(state is LoginLoadingState)
+              {
+                return Scaffold(
+                  body: Center(child: CircularProgressIndicator(),),
+                );
+              }
           },
           child: Container(
             constraints: BoxConstraints.expand(),
@@ -174,4 +170,9 @@ class _LoginPageState extends State<LoginPage> {
       _showPass = !_showPass;
     });
   }
+
+
+
+ 
+
 }

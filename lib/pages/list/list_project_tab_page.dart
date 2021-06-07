@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/bloc/project_bloc.dart';
 import 'package:quanly_app/constants.dart';
 
 // import 'package:quanly_app/models/project.dart';
 import 'package:quanly_app/models/project.model.dart';
+import 'package:quanly_app/pages/list/bloc_list_project/list_project_bloc.dart';
 import 'package:quanly_app/pages/list/project_detail.dart';
 import 'package:quanly_app/pages/list/search_page.dart';
 import 'package:quanly_app/widgets/project_cart.dart';
 
-class ListProjectTabPage extends StatelessWidget {
-  ProjectBLoC projectBLoC = new ProjectBLoC();
+class ListProjectTabPage extends StatefulWidget {
+  @override
+  _ListProjectTabPageState createState() => _ListProjectTabPageState();
+}
+
+class _ListProjectTabPageState extends State<ListProjectTabPage> {
+  ListProjectBloc projectBLoC;
+  @override
+  void initState() {
+    projectBLoC = context.read();
+    projectBLoC.add(LoadListProjectEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: projectBLoC.projectList,
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.done:
-              if (snapshot.hasError)
-                return Text("Có lỗi xảy ra: ${snapshot.error}");
-              List<Project> project = snapshot.data;
+    return BlocConsumer<ListProjectBloc,ListProjectState>(
+       listener: (context,state){
+       print("state xxx: $state");
+    },
+        builder: (context, state) {
+          if( state is ListProjectLoaded)
+            {
+              List<Project> project = state.list;
               return Column(children: [
                 InkWell(
                   onTap: (){
@@ -50,9 +57,9 @@ class ListProjectTabPage extends StatelessWidget {
                         ),
                         Expanded(
                             child: Text(
-                          "search?",
-                          style: kTitleCard.copyWith(color: Colors.black12,fontSize: 14,fontWeight: FontWeight.w100),
-                        )),
+                              "search?",
+                              style: kTitleCard.copyWith(color: Colors.black12,fontSize: 14,fontWeight: FontWeight.w100),
+                            )),
                       ],
                     ),
                   ),
@@ -68,19 +75,20 @@ class ListProjectTabPage extends StatelessWidget {
                         Project _project = project[index];
                         return InkWell(
                             onTap: () {
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ProjectDetail(
-                                            project: _project,
-                                          )));
+                                        project: _project,
+                                      )));
                             },
                             child: Container(
                               width: double.infinity,
                               height: 160.0,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 18.0, vertical: 8.0),
-                              child: ProjectCard(project: _project),
+                              child: ProjectCard(project: _project,projectBLoC:projectBLoC,),
                             ));
                       },
                       // separatorBuilder: (context, index) => Divider(),
@@ -88,7 +96,16 @@ class ListProjectTabPage extends StatelessWidget {
                   ),
                 ),
               ]);
-          }
+            }
+          else if(state is ListProjectLoading)
+            {
+              return Scaffold(body: Center(child: CircularProgressIndicator(),),);
+            }
+          else if(state is ListProjectError)
+            {
+              return Scaffold(body: Center(child:  Text("có lỗi xảy ra!"),),);
+            }
+          return Scaffold(body: Center(child:  Text("có lỗi xảy ra!"),),);
         });
   }
 }

@@ -8,7 +8,7 @@ import 'package:quanly_app/util/global_cache.dart';
 import 'api.dart';
 
 class DetaiProjectService {
-  static String _url =
+    String _url =
       '${baseApi}/api/v1/project/getId/${GlobalCache().getUser().idProject}';
 
   Future<DetailProject> getDetatil() async {

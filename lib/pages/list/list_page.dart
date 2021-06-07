@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/constants.dart';
+import 'package:quanly_app/pages/list/bloc_list_project/list_project_bloc.dart';
 import 'package:quanly_app/pages/list/list_project_tab_page.dart';
 import 'package:quanly_app/pages/list/list_teacher_tab_page.dart';
+import 'package:quanly_app/service/project_service.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -29,7 +32,9 @@ class _ListPageState extends State<ListPage> {
           automaticallyImplyLeading: false,
         ),
         body: TabBarView(
-          children: [ListProjectTabPage(), ListTeacherTabPage()],
+          children: [BlocProvider(
+             create: (_)=> ListProjectBloc(projectService: ProjectService()),
+              child: ListProjectTabPage()), ListTeacherTabPage()],
         ),
       ),
     );

@@ -7,7 +7,7 @@ import 'api.dart';
 
 class ProjectService {
   static String _url = '${baseApi}/api/v1/project/getAll/';
-  static Future browse() async {
+   Future<List<Project>> browse() async {
     List collection;
     List<Project> _project;
     var response = await http.get(_url);

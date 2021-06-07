@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:quanly_app/bloc/project_bloc.dart';
 import 'package:quanly_app/constants.dart';
 import 'package:quanly_app/models/news.dart';
 import 'package:quanly_app/models/project.model.dart';
 import 'package:quanly_app/models/student.dart';
 import 'package:quanly_app/pages/home_page.dart';
+import 'package:quanly_app/pages/list/bloc_list_project/list_project_bloc.dart';
 import 'package:quanly_app/service/register_project_service.dart';
 import 'package:quanly_app/util/dialog_over_time.dart';
 import 'package:quanly_app/util/global_cache.dart';
@@ -11,7 +13,9 @@ import 'package:quanly_app/widgets/showMessage.dart';
 
 class ProjectCard extends StatefulWidget {
   final Project project;
-  ProjectCard({this.project});
+  ListProjectBloc projectBLoC;
+
+  ProjectCard({this.project,this.projectBLoC});
 
   @override
   _ProjectCardState createState() => _ProjectCardState();
@@ -103,13 +107,9 @@ class _ProjectCardState extends State<ProjectCard> {
                             if (succes != null) {
 
                               Student student = GlobalCache().getUser();
-
                               student.idProject = widget.project.id;
                               GlobalCache().setUser(student);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) =>
-                                     HomePage()
-                                  ));
+                              widget.projectBLoC.add(LoadListProjectEvent());
                             }
                           },
                           child: Text(
