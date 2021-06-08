@@ -125,7 +125,8 @@ class _LoginPageState extends State<LoginPage> {
             if (state is StudentLoginSuccessState) {
               // String id = state.getString();
               // print("id login : " + id);
-              return Navigator.pushNamed(context, '/student');
+              return  Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
             } else if (state is AdminLoginSuccesState) {
               return Navigator.pushNamed(context, '/admin');
             }

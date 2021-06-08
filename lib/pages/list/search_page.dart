@@ -47,7 +47,9 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   trailing: new IconButton(
                     icon: new Icon(Icons.cancel),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
               ),
