@@ -14,7 +14,7 @@ class AuthService {
     if (res.statusCode == 200) {
 
      Map<String,dynamic> data = convert.jsonDecode(res.body);
-     Student student = Student(id: data['id'],accessToken: data['accessToken'],idProject: data['idProject'],nameStudent: data['nameStudent'],idStudent: data['idStudent']);
+     Student student = Student.fromJson(data);
      print("sssssssdfsdsdgdasgsdr${student.idProject.toString()}");
       if(student!=null)
         {

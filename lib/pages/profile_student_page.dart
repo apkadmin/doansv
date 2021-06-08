@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/pages/authen/login_page.dart';
-import 'package:quanly_app/pages/change_pass_word.dart';
+import 'package:quanly_app/pages/change_pass/bloc/change_pass_bloc.dart';
+import 'package:quanly_app/pages/change_pass/change_pass_word.dart';
+import 'package:quanly_app/service/change_pass_service.dart';
 import 'package:quanly_app/util/global_cache.dart';
 
 import '../constants.dart';
@@ -100,7 +103,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
               ),
               Center(
                 child: Text(
-                  "CT010328",
+                  "${GlobalCache().getUser().idClass}",
                   style: kCategoryTitle.copyWith(fontSize: 20),
                 ),
               ),
@@ -122,7 +125,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "0349715896",
+                      "${GlobalCache().getUser().phone??"xxx"}",
                       style: kTitleCard,
                     ),
                   ],
@@ -146,7 +149,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "quangminhkma2809@gmail.com",
+                      "${GlobalCache().getUser().email??'xxx@gmail.com'}",
                       style: kTitleCard,
                     ),
                   ],
@@ -170,7 +173,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "CT1C - Di động",
+                      "${GlobalCache().getUser().majors}",
                       style: kTitleCard,
                     ),
                   ],
@@ -194,7 +197,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "Tân Triều,Thanh trì, Hà Nội",
+                      "${GlobalCache().getUser().address??"Japan"}",
                       style: kTitleCard,
                     ),
                   ],
@@ -202,11 +205,12 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
               ),
               GestureDetector(
                 onTap: (){
-                  GlobalCache().setUser(null);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>ChangePassWord() ));
+                          builder: (context) =>BlocProvider(
+                            create: (_)=> ChangePassBloc(changePassService: ChangePassService()),
+                              child: ChangePassWord()) ));
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
@@ -219,7 +223,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.login_rounded
+                      Icon(Icons.vpn_key
                       ),
                       SizedBox(
                         width: 10,

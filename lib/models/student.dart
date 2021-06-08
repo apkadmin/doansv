@@ -1,9 +1,10 @@
 
 
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 part 'student.g.dart';
 @HiveType(typeId: 0)
-class Student extends HiveObject {
+class Student extends HiveObject implements Equatable {
   @HiveField(0)
   String id;
   @HiveField(1)
@@ -94,4 +95,10 @@ class Student extends HiveObject {
     data['idProject'] = this.idProject;
     return data;
   }
+
+  @override
+  List<Object> get props => [idStudent,id,nameStudent,idProject,idClass,email,username,role,accessToken,birthday,address,phone,code,majors,schoolYear,image];
+
+  @override
+  bool get stringify => throw UnimplementedError();
 }
