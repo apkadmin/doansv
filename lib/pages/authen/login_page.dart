@@ -5,6 +5,8 @@ import 'package:quanly_app/bloc/auth_bloc.dart';
 import 'package:quanly_app/events/auth_events.dart';
 import 'package:quanly_app/events/auth_state.dart';
 import 'package:quanly_app/pages/home_page.dart';
+import 'package:quanly_app/widgets/showMessage.dart';
+import 'package:quanly_app/widgets/show_loading.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -129,9 +131,12 @@ class _LoginPageState extends State<LoginPage> {
             }
             else if(state is LoginLoadingState)
               {
-                return Scaffold(
-                  body: Center(child: CircularProgressIndicator(),),
-                );
+                return showLoading(context);
+              }
+            else  if(state is LoginErrorState)
+              {
+                Navigator.pop(context);
+                return showMessage(context, "Sai tên đăng nhập hoặc mật khẩu");
               }
           },
           child: Container(

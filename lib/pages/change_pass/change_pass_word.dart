@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quanly_app/pages/change_pass/bloc/change_pass_bloc.dart';
 import 'package:quanly_app/widgets/showMessage.dart';
+import 'package:quanly_app/widgets/show_loading.dart';
 
 class ChangePassWord extends StatefulWidget {
   const ChangePassWord({Key key}) : super(key: key);
@@ -21,7 +22,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
   @override
   void initState() {
     changePassBloc = context.read();
- 
+
     super.initState();
   }
 
@@ -31,7 +32,9 @@ class _ChangePassWordState extends State<ChangePassWord> {
         listener: (context, state) {
       if (state is ChangePassLoading) {
         showLoading(context);
+
       } else if (state is ChangePassLoaded) {
+        showMessage(context, "Đổi mật khẩu thành công");
         Navigator.of(context).popUntil((_) => count++ >= 2);
       } else if (state is ChangePassError) {
         Navigator.pop(context);
@@ -124,27 +127,5 @@ class _ChangePassWordState extends State<ChangePassWord> {
     });
   }
 
-  showLoading(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        useRootNavigator: false,
-        builder: (c) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                alignment: Alignment.center,
-                height: 70,
-                width: 70,
-                child: CupertinoActivityIndicator(),
-              ),
-            ),
-          );
-        });
-  }
+
 }

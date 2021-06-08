@@ -23,7 +23,10 @@ class  AuthBloC extends Bloc<AuthEvents, AuthState> {
         pref.setString('accessToken', data['accessToken']);
         yield LoginErrorState(message: "auth error");
       }
-      if (data['role'] == 'student') {
+
+
+
+      else if (data['role'] == 'student') {
         pref.setString('accessToken', data['accessToken']);
         pref.setString('id', data['id']);
         pref.setString('email', data['email']);
@@ -46,6 +49,9 @@ class  AuthBloC extends Bloc<AuthEvents, AuthState> {
         pref.setString('accessToken', data['accessToken']);
         pref.setString('id', data['id']);
         pref.setString('email', data['email']);
+      }
+      else{
+        yield LoginErrorState(message: "auth error");
       }
     }
   }
