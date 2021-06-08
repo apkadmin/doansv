@@ -109,6 +109,7 @@ class _ProjectCardState extends State<ProjectCard> {
                               Student student = GlobalCache().getUser();
                               student.idProject = widget.project.id;
                               GlobalCache().setUser(student);
+                              showMessage(context, "Đăng ký đề tài thành công");
                               widget.projectBLoC.add(LoadListProjectEvent());
                             }
                           },
