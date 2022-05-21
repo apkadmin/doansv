@@ -9,7 +9,7 @@ class StudentService {
   GetUser(String idUser, String accsessToken) async {
     String _url = '${baseApi}/api/student/${idUser}';
 
-    var res = await http.get(_url);
+    var res = await http.get(Uri.parse(_url));
     // var res = await http.get(_url, headers: {"x-access-token": accsessToken});
 
     if (res.statusCode == 200) {

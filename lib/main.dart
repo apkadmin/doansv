@@ -15,18 +15,19 @@ import 'package:quanly_app/util/hive_utils.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var appDocDirectory = await getApplicationDocumentsDirectory();
-  Hive..init(appDocDirectory.path)..registerAdapter(StudentAdapter());
+  Hive
+    ..init(appDocDirectory.path)
+    ..registerAdapter(StudentAdapter());
   await Hive.openBox("BOX_USER");
   await Hive.openBox('BOX_SHOW_SPLASH');
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     Student userModel = HiveUtils().getUser();
-    if (userModel!=null){
+    if (userModel != null) {
       print("sssssssssssssssssssssssssssxxxx${userModel.idProject}");
       GlobalCache().setUser(userModel);
       GlobalCache().setToken(userModel.accessToken);
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: userModel==null?'/':'/student',
+        initialRoute: userModel == null ? '/' : '/student',
         routes: {
           '/': (context) => LoginPage(),
           '/student': (context) => HomePage(),

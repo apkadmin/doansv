@@ -17,20 +17,16 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
     detailProcessProjectBloc.add(GetDetailProcess());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     // ignore: missing_required_param
-    return BlocConsumer<DetailProcessProjectBloc,DetailProcesssProjectState>(
-      listener: (context, state) {
-        print("state listener : $state");
-      },
-    builder: (context, state) {
-        if(state is DetailProcessProjectLoading)
-          {
+    return BlocConsumer<DetailProcessProjectBloc, DetailProcesssProjectState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is DetailProcessProjectLoading) {
             return Scaffold(body: Center(child: CircularProgressIndicator()));
-          }
-        else if(state is DetailProcessProjectLoaded)
-          {
+          } else if (state is DetailProcessProjectLoaded) {
             return Scaffold(
               body: Padding(
                 padding: EdgeInsets.only(left: 8, right: 8),
@@ -41,15 +37,56 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
                     SizedBox(
                       height: 60,
                     ),
-                    Text("Chi tiết đồ án", style: kTitleProfile.copyWith(fontSize: 20)),
+                    Text("Chi tiết đồ án",
+                        style: kTitleProfile.copyWith(fontSize: 30)),
                     SizedBox(
                       height: 20,
                     ),
-                    Text("Sinh Viên ước lượng: ${state.processStage.studentRate}%", style: kTitleProfile.copyWith(fontSize: 14,fontWeight: FontWeight.normal)),
-                    Text("Giáo viên đánh giá   : ${state.processStage.teacherRate}%", style: kTitleProfile.copyWith(fontSize: 14,fontWeight: FontWeight.normal)),
-                    Text("Giáo viên đánh giá thái độ  : ${state.processStage.attitudeStudy}", style: kTitleProfile.copyWith(fontSize: 14,fontWeight: FontWeight.normal)),
+                    Text(
+                        " Sinh Viên ước lượng tổng tỷ lệ nội dung công việc đồ án thực hiện: ${state.processStage.studentRate}%",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        " Giáo viên hướng dẫn đánh giá tổng tỷ lệ nội dung công việc đồ án đạt được: ${state.processStage.teacherRate}%",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        " Đánh giá mức độ hoàn thành kế hoạch đồ án đến thời điểm báo cáo: ${state.processStage.planState}",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        " Tinh thần, thái độ của sinh viên trong việc tìm kiếm tài liệu, nghiên cứu và thực hiện ĐATN: ${state.processStage.attitudeStudy}",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        " Tinh thần, thái độ của sinh viên trong việc gặp gỡ, trao đổi với GVHD các nhiệm vụ thực hiện ĐATN: ${state.processStage.attWithTeacher}",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        " Đánh giá khả năng hoàn thành đồ án đúng thời hạn (ngày 10/06/2021): ${state.processStage.abilityRate}",
+                        style: kTitleProfile.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal)),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -57,12 +94,16 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
                             "STT",
                             style: kTitleCard.copyWith(fontSize: 12),
                           ),
-                          SizedBox(width: 4,),
+                          SizedBox(
+                            width: 4,
+                          ),
                           Text(
                             "Công việc",
                             style: kTitleCard.copyWith(fontSize: 12),
                           ),
-                          SizedBox(width: 2,),
+                          SizedBox(
+                            width: 2,
+                          ),
                           Text(
                             "Người thực hiện",
                             style: kTitleCard.copyWith(fontSize: 12),
@@ -71,7 +112,6 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
                             "Tiến độ(%)",
                             style: kTitleCard.copyWith(fontSize: 12),
                           ),
-
                         ],
                       ),
                     ),
@@ -81,22 +121,33 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
                           scrollDirection: Axis.vertical,
                           padding: EdgeInsets.only(top: 20),
                           itemBuilder: (context, index) {
-                            ListProgressLog procesLog = state.processStage.listProgressLog[index];
+                            ListProgressLog procesLog =
+                                state.processStage.listProgressLog[index];
                             return Card(
-                              shape:  RoundedRectangleBorder(
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: Container(
                                 height: 60,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text("$index",style: kTitleCard.copyWith(fontSize: 12),textAlign: TextAlign.center,),
-                                    Text("${procesLog.content}",style: kTitleCard.copyWith(fontSize: 12)),
-                                    Text("${procesLog.worker}",style: kTitleCard.copyWith(fontSize: 12)),
-                                    Text("${procesLog.percent}%",style: kTitleCard.copyWith(fontSize: 12)),
-
+                                    Text(
+                                      "${index + 1}",
+                                      style: kTitleCard.copyWith(fontSize: 12),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text("${procesLog.content}",
+                                        style:
+                                            kTitleCard.copyWith(fontSize: 12)),
+                                    Text("${procesLog.worker}",
+                                        style:
+                                            kTitleCard.copyWith(fontSize: 12)),
+                                    Text("${procesLog.percent}%",
+                                        style:
+                                            kTitleCard.copyWith(fontSize: 12)),
                                   ],
                                 ),
                               ),
@@ -107,13 +158,14 @@ class DetailProcessProjectState extends State<DetailProcessProject> {
                 ),
               ),
             );
+          } else if (state is DetailProcessProjectErros) {
+            return Scaffold(
+              body: Center(
+                child: Text('Chưa có đánh giá'),
+              ),
+            );
           }
-        else if(state is DetailProcessProjectErros)
-          {
-            return Scaffold(body: Center(child: Text('Chưa có đánh giá'),),);
-          }
-        return Material(child: Center(child: CircularProgressIndicator()));
-    }
-    );
+          return Material(child: Center(child: CircularProgressIndicator()));
+        });
   }
 }

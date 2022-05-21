@@ -8,7 +8,6 @@ import 'package:quanly_app/widgets/secondary_card.dart';
 import 'package:quanly_app/util/global_cache.dart';
 import 'package:quanly_app/models/student.dart';
 
-
 class NewPage extends StatefulWidget {
   @override
   _NewPageState createState() => _NewPageState();
@@ -52,7 +51,8 @@ class _NewPageState extends State<NewPage> {
                     borderRadius: BorderRadius.circular(10.0),
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/images/IMG_2242.JPG"))),
+                        image: NetworkImage(
+                            "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg"))),
               ),
             )
           ],

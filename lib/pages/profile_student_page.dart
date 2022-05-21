@@ -63,7 +63,8 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage("assets/images/IMG_2242.JPG"),
+                          image: NetworkImage(
+                              "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg"),
                         ),
                       ),
                     ),
@@ -103,7 +104,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
               ),
               Center(
                 child: Text(
-                  "${GlobalCache().getUser().idClass}",
+                  "${GlobalCache().getUser().code}",
                   style: kCategoryTitle.copyWith(fontSize: 20),
                 ),
               ),
@@ -125,7 +126,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "${GlobalCache().getUser().phone??"xxx"}",
+                      "${GlobalCache().getUser().phone ?? "xxx"}",
                       style: kTitleCard,
                     ),
                   ],
@@ -149,7 +150,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "${GlobalCache().getUser().email??'xxx@gmail.com'}",
+                      "${GlobalCache().getUser().email ?? 'xxx@gmail.com'}",
                       style: kTitleCard,
                     ),
                   ],
@@ -197,24 +198,25 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                       width: 10,
                     ),
                     Text(
-                      "${GlobalCache().getUser().address??"Japan"}",
+                      "${GlobalCache().getUser().address ?? "Japan"}",
                       style: kTitleCard,
                     ),
                   ],
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>BlocProvider(
-                            create: (_)=> ChangePassBloc(changePassService: ChangePassService()),
-                              child: ChangePassWord()) ));
+                          builder: (context) => BlocProvider(
+                              create: (_) => ChangePassBloc(
+                                  changePassService: ChangePassService()),
+                              child: ChangePassWord())));
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   width: double.infinity,
                   height: 70,
                   decoration: BoxDecoration(
@@ -223,8 +225,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.vpn_key
-                      ),
+                      Icon(Icons.vpn_key),
                       SizedBox(
                         width: 10,
                       ),
@@ -237,14 +238,16 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   GlobalCache().setUser(null);
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      (route) => false);
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   width: double.infinity,
                   height: 70,
                   decoration: BoxDecoration(
@@ -253,8 +256,7 @@ class _ProfileStudentPageState extends State<ProfileStudentPage> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.login_rounded
-                      ),
+                      Icon(Icons.login_rounded),
                       SizedBox(
                         width: 10,
                       ),

@@ -5,25 +5,21 @@ import 'dart:convert' as convert;
 import 'api.dart';
 
 class AuthService {
-  static String _url = '${baseApi}/api/auth/signin';
+  static String _url = '${baseApi}/api/v1/auth/signin';
   Student student;
   Login(String username, String password) async {
-    var res = await http.post(_url,
+    var res = await http.post(Uri.parse(_url),
         headers: {}, body: {"username": username, "password": password});
 
     if (res.statusCode == 200) {
-
-     Map<String,dynamic> data = convert.jsonDecode(res.body);
-     Student student = Student.fromJson(data);
-     print("sssssssdfsdsdgdasgsdr${student.idProject.toString()}");
-      if(student!=null)
-        {
-          GlobalCache().setUser(student);
-        }
+      Map<String, dynamic> data = convert.jsonDecode(res.body);
+      Student student = Student.fromJson(data);
+      if (student != null) {
+        GlobalCache().setUser(student);
+      }
 
       return data;
     } else {
-      print('Request failed with status: ${res.statusCode}.');
       final data = convert.jsonDecode(res.body);
       return data;
     }

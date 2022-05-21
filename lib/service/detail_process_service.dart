@@ -14,7 +14,7 @@ class DetailProcessService {
   Future<ProcessStage> getDetatil() async {
     print('xsmax xxxxx${GlobalCache().getUser().idProject}');
     ProcessStage detailProject;
-    var response = await http.get('$baseApi/api/v1/projectProgress/getAll/${GlobalCache().getUser().idProject}/$stages');
+    var response = await http.get(Uri.parse('$baseApi/api/v1/projectProgress/getAll/${GlobalCache().getUser().idProject}/$stages'));
     if (response.statusCode == 200) {
       var data = convert.json.decode(response.body);
       detailProject = ProcessStage.fromJson(data);

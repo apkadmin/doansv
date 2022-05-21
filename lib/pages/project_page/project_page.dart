@@ -29,7 +29,11 @@ class _ProjectPageState extends State<ProjectPage> {
       print("state listener : $state");
     }, builder: (context, state) {
       if (state is DetailProjectLoading) {
-        return Scaffold(body: Center(child: CircularProgressIndicator(),),);
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       } else if (state is DetailProjectLoaded) {
         return Scaffold(
             appBar: AppBar(
@@ -52,7 +56,14 @@ class _ProjectPageState extends State<ProjectPage> {
                         height: 10,
                       ),
                       Center(
-                        child: Text("${state.detailProject.name ?? 'Chưa có'}"),
+                        child: Text(
+                          "${state.detailProject.name ?? 'Chưa có'}",
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.blue[700],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -181,7 +192,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
               ],
             ));
-      } else if(state is DetailProcessProjectErros){
+      } else if (state is DetailProcessProjectErros) {
         return Center(
           child: Text("Bạn chưa đăng ký project"),
         );

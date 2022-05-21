@@ -1,2 +1,1 @@
-const baseApi = 'http://9436cc8cfc4b.ngrok.io';
-
+const baseApi = 'http://192.168.2.101:8080';

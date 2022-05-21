@@ -13,7 +13,7 @@ class DetaiProjectService {
 
   Future<DetailProject> getDetatil() async {
     DetailProject detailProject;
-    var response = await http.get(_url);
+    var response = await http.get(Uri.parse(_url));
     if (response.statusCode == 200) {
       var data = convert.json.decode(response.body);
       detailProject = DetailProject.fromJson(data);

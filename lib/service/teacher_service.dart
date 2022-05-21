@@ -10,7 +10,7 @@ class TeacherService {
   static Future browse() async {
     List collection;
     List<Teacher> _teacher;
-    var response = await http.get(_url);
+    var response = await http.get(Uri.parse(_url));
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
       _teacher = collection.map((json) => Teacher.fromJson(json)).toList();

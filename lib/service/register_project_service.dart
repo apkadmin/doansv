@@ -9,7 +9,7 @@ import 'api.dart';
 class RegisterProjectService
 {static String _url = '${baseApi}/api/v1/student/regis';
 registerProject(String idProject, String idStudent,String nameStudent) async {
-  var res = await http.post(_url,
+  var res = await http.post(Uri.parse(_url),
       headers: {}, body: {"idProject": idProject, "idStudent": idStudent,"nameStudent":nameStudent});
 
   if (res.statusCode == 200) {

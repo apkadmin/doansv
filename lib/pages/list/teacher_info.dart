@@ -18,7 +18,6 @@ class TeacherInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
-              overflow: Overflow.visible,
               alignment: Alignment.center,
               children: [
                 Image(

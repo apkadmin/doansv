@@ -11,7 +11,7 @@ class ChangePassService
   changePass(
       {String oldPass,
       String newPass}) async {
-    var res = await http.post(_url,
+    var res = await http.post(Uri.parse(_url),
         headers: {}, body: {"id": GlobalCache().getUser().id, "oldPassword": oldPass,"newPassword":newPass});
     if (res.statusCode == 200) {
       Map<String,dynamic> data = convert.jsonDecode(res.body);

@@ -10,7 +10,7 @@ class ProjectService {
    Future<List<Project>> browse() async {
     List collection;
     List<Project> _project;
-    var response = await http.get(_url);
+    var response = await http.get(Uri.parse(_url));
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
       print(collection);

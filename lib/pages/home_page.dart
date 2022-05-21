@@ -85,27 +85,21 @@ class HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home,
                   color: _selectedIndex == 0 ? Colors.blue : Colors.grey),
-              title: Text("Tin tức",
-                  style: TextStyle(
-                      color: _selectedIndex == 0 ? Colors.blue : Colors.grey))),
+              label: "Tin tức",),
           BottomNavigationBarItem(
               icon: Icon(Icons.list_alt,
                   color: _selectedIndex == 1 ? Colors.blue : Colors.grey),
-              title: Text("Danh sách",
-                  style: TextStyle(
-                      color: _selectedIndex == 1 ? Colors.blue : Colors.grey))),
+              label: "Danh sách",
+                ),
           BottomNavigationBarItem(
               icon: Icon(Icons.inbox,
                   color: _selectedIndex == 2 ? Colors.blue : Colors.grey),
-              title: Text("Tiến độ",
-                  style: TextStyle(
-                      color: _selectedIndex == 2 ? Colors.blue : Colors.grey))),
+              label: "Tiến độ"),
           BottomNavigationBarItem(
               icon: Icon(Icons.person,
                   color: _selectedIndex == 3 ? Colors.blue : Colors.grey),
-              title: Text("cá nhân",
-                  style: TextStyle(
-                      color: _selectedIndex == 3 ? Colors.blue : Colors.grey))),
+             label:"cá nhân",
+                 ),
         ],
       ),
     );
